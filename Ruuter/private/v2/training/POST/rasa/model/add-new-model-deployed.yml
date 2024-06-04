@@ -1,0 +1,19 @@
+updateInDatabase:
+  call: http.post
+  args:
+    url: "[#TRAINING_RESQL]/add-llm-trainings"
+    body:
+      model_type: ${incoming.body.modelType}
+      state: "DEPLOYED"
+      file_name: ${incoming.body.fileName}
+      version_number: ${incoming.body.versionNumber}
+      model_version: ${incoming.body.modelVersion}
+      test_report: ""
+      cross_validation_report: ""
+      training_data_checksum: ""
+  result: dbModelResult
+
+returnSuccess:
+  return: "Inserted model with DEPLOYED status."
+  wrapper: false
+  next: end
